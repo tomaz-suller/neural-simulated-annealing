@@ -1,0 +1,66 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "neuralsa"
+dynamic = ["version"]
+description = 'Implementation for the paper "Neural Simulated Annealing" (https://arxiv.org/abs/2203.02201)'
+readme = "README.md"
+requires-python = ">=3.8"
+license = "BSD-3-Clause-Clear"
+keywords = []
+authors = [
+  # { name = "tomaz-suller", email = "tomaz.suller@usp.br" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+  "hydra-core>=1.3.2",
+  "numpy>=1.24.2",
+  "ortools>=9.3.10497",
+  "torch>=1.13.0",
+]
+
+[project.urls]
+Documentation = "https://github.com/tomaz-suller/neuralsa#readme"
+Issues = "https://github.com/tomaz-suller/neuralsa/issues"
+Source = "https://github.com/tomaz-suller/neuralsa"
+
+[tool.hatch.version]
+path = "src/neuralsa/__about__.py"
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+  "mypy>=1.0.0",
+]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/neuralsa tests}"
+
+[tool.coverage.run]
+source_pkgs = ["neuralsa", "tests"]
+branch = true
+parallel = true
+omit = [
+  "src/neuralsa/__about__.py",
+]
+
+[tool.coverage.paths]
+neuralsa = ["src/neuralsa", "*/neuralsa/src/neuralsa"]
+tests = ["tests", "*/neuralsa/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
